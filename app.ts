@@ -99,7 +99,6 @@ testAnyArray = ["string", 10, false, { name: "Jhon" }]
 let sayHi = () => {
     console.log("Hi!");
 }
-
 // sayHi = "Hi"; // get error
 
 let functionReturnString = (): string => {
@@ -117,7 +116,6 @@ let multiple2 = (num: number): number => {
 
 let multiple3 = (num: number): void => {
     // use void when you don't need to return anything
-
     // your code
 }
 
@@ -128,5 +126,118 @@ sum(1, 2);
 
 let userInfo = (user: { userName: string, age: number, phone?: string }) => {
     console.log(user.userName);
-    
+}
+
+// TYPE ALIASES
+type UserType = {
+    userName: string,
+    age: number,
+    phone?: string
+}
+
+let betterFunc = (user: UserType) => {
+    console.log(user.userName);
+}
+
+type myFunc = (a: number, b: string) => void;
+
+let write: myFunc = (num, str) => {
+    console.log(num + "times" + str);
+}
+
+type UserType2 = {
+    userName: string,
+    age: number,
+    phone?: string,
+    gender: "men" | "woman"
+}
+
+const userWithGender: UserType2 = {
+    userName: "Jhon",
+    age: 21,
+    gender: "men"
+}
+
+// INTERFACES
+interface IUser {
+    userName: string,
+    email: string,
+    age: number
+}
+
+interface IEmployee extends IUser {
+    employeeId: number
+}
+
+const employee: IEmployee = {
+    userName: "Jhon",
+    email: "jhon@mail.com",
+    age: 24,
+    employeeId: 1
+}
+
+const client: IUser = {
+    userName: "Jhon2",
+    email: "jhon2@mail.com",
+    age: 24,
+}
+
+// GENERICS
+interface IAuthor {
+    id: number,
+    userName: string,
+}
+
+interface ICetegory {
+    id: number,
+    title: string,
+}
+
+interface IPost {
+    id: number,
+    title: string,
+    desc: string,
+    extra: IAuthor[] | ICetegory[]
+}
+
+interface IPostBetter<T> {
+    id: number,
+    title: string,
+    desc: string,
+    extra: T[]
+}
+
+const testMe: IPostBetter<string> = {
+    id: 1,
+    title: "Hello Post",
+    desc: "Hello Poooooost",
+    extra: ["str, str2"]
+}
+
+interface IPostEvenBetter<T extends object> {
+    id: number,
+    title: string,
+    desc: string,
+    extra: T[]
+}
+
+const testMe2: IPostEvenBetter<{id: number, userName: string}> = {
+    id: 1,
+    title: "Hello Post",
+    desc: "Hello Poooooost",
+    extra: [{id: 2, userName: "Post"}]
+}
+
+const testMe3: IPostEvenBetter<IAuthor> = {
+    id: 1,
+    title: "Hello Post",
+    desc: "Hello Poooooost",
+    extra: [{id: 2, userName: "Post"}]
+}
+
+const testMe4: IPostEvenBetter<ICetegory> = {
+    id: 1,
+    title: "Hello Post",
+    desc: "Hello Poooooost",
+    extra: [{id: 2, title: "Post Created"}]
 }
